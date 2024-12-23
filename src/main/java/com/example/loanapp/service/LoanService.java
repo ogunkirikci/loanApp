@@ -108,13 +108,13 @@ public class LoanService {
                 BigDecimal actualPaidAmount = installment.getAmount();
 
                 if (daysDifference > 0) {
-                    // Erken ödeme indirimi
+                    // Early payment discount
                     BigDecimal discount = installment.getAmount()
                             .multiply(new BigDecimal("0.001"))
                             .multiply(BigDecimal.valueOf(daysDifference));
                     actualPaidAmount = actualPaidAmount.subtract(discount);
                 } else if (daysDifference < 0) {
-                    // Geç ödeme cezası
+                    // Late payment penalty
                     BigDecimal penalty = installment.getAmount()
                             .multiply(new BigDecimal("0.001"))
                             .multiply(BigDecimal.valueOf(Math.abs(daysDifference)));
@@ -172,7 +172,7 @@ public class LoanService {
 
         List<LoanHistoryDTO> history = new ArrayList<>();
         
-        // Kredi oluşturma kaydı
+        // Loan creation record
         history.add(LoanHistoryDTO.builder()
                 .transactionDate(loan.getCreateDate())
                 .transactionType("CREATION")
@@ -181,7 +181,7 @@ public class LoanService {
                 .description("Loan created")
                 .build());
 
-        // Ödeme kayıtları
+        // Payment records
         loan.getInstallments().stream()
                 .filter(LoanInstallment::isPaid)
                 .forEach(installment -> {

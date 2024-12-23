@@ -27,11 +27,11 @@ public class PaymentService {
         BigDecimal adjustedAmount = installment.getAmount();
         
         if (daysDifference > 0) {
-            // Erken ödeme indirimi
+            // Early payment discount
             BigDecimal discount = calculateEarlyPaymentDiscount(installment.getAmount(), daysDifference);
             adjustedAmount = adjustedAmount.subtract(discount);
         } else if (daysDifference < 0) {
-            // Gecikme cezası
+            // Late payment penalty
             BigDecimal penalty = calculateLatePaymentPenalty(installment.getAmount(), Math.abs(daysDifference));
             adjustedAmount = adjustedAmount.add(penalty);
         }
@@ -52,13 +52,13 @@ public class PaymentService {
             PaymentCalculation calculation = calculatePayment(installment, LocalDate.now());
             
             if (remainingAmount.compareTo(calculation.getAdjustedAmount()) >= 0) {
-                // Taksiti öde
+                // Pay installment
                 installment.setPaid(true);
                 installment.setPaidAmount(calculation.getAdjustedAmount());
                 installment.setPaymentDate(LocalDate.now());
                 installmentRepository.save(installment);
                 
-                // İstatistikleri güncelle
+                // Update statistics
                 remainingAmount = remainingAmount.subtract(calculation.getAdjustedAmount());
                 paidCount++;
                 
@@ -72,7 +72,7 @@ public class PaymentService {
                     );
                 }
                 
-                // Ödeme detaylarını ekle
+                // Add payment details
                 paymentDetails.add(createPaymentDetail(installment, calculation));
             }
         }

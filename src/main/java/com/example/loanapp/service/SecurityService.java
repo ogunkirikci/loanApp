@@ -1,7 +1,6 @@
 package com.example.loanapp.service;
 
 import com.example.loanapp.repository.LoanRepository;
-import com.example.loanapp.repository.CustomerRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;

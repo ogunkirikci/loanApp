@@ -1,7 +1,6 @@
 package com.example.loanapp.controller;
 
 import com.example.loanapp.dto.CreateLoanRequest;
-import com.example.loanapp.dto.LoanResponseDTO;
 import com.example.loanapp.dto.PayLoanRequest;
 import com.example.loanapp.dto.PaymentResponse;
 import com.example.loanapp.dto.LoanInstallmentDTO;
@@ -10,9 +9,10 @@ import com.example.loanapp.dto.LoanHistoryDTO;
 import com.example.loanapp.dto.PaymentPlanDTO;
 import com.example.loanapp.dto.EarlyClosureDTO;
 import com.example.loanapp.model.Loan;
-import com.example.loanapp.model.LoanInstallment;
 import com.example.loanapp.service.LoanService;
+
 import lombok.RequiredArgsConstructor;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
